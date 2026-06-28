@@ -1,0 +1,15 @@
+---
+- name: Deploy hard_ware container
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Pull Docker image
+      command: docker pull afzar/hard_ware:latest
+
+    - name: Remove old container
+      command: docker rm -f hard_ware_container
+      ignore_errors: yes
+
+    - name: Run new container
+      command: docker run -d -p 80:80 --name hard_ware_container afzar/hard_ware:latest
